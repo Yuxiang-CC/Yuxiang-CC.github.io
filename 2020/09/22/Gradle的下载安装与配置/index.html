@@ -16,10 +16,12 @@
 
   <!-- 页面元数据 -->
   
-    <title>Hello World - 雨巷的伞</title>
+    <title>Gradle的下载安装与配置 - 雨巷的伞</title>
+  
+    <meta name="keywords" content="Gradle">
   
   
-    <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in trouble...">
+    <meta name="description" content="Maven的下载安装、配置及简单使用">
   
 
   <!-- feed -->
@@ -313,8 +315,8 @@
         
           
   <h1 class="title">
-    <a href="/2020/07/03/hello-world/">
-      Hello World
+    <a href="/2020/09/22/Gradle%E7%9A%84%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/">
+      Gradle的下载安装与配置
     </a>
   </h1>
 
@@ -337,6 +339,14 @@
           
             
               
+  
+  <div class='new-meta-item category'>
+    <a href='/categories/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/Gradle/' rel="nofollow">
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <p>项目构建工具/Gradle</p>
+    </a>
+  </div>
+
 
             
           
@@ -344,7 +354,7 @@
               <div class="new-meta-item date">
   <a class='notlink'>
     <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：2020年7月3日</p>
+    <p>发布于：2020年9月22日</p>
   </a>
 </div>
 
@@ -355,13 +365,13 @@
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fas fa-keyboard fa-fw" aria-hidden="true"></i>
-      <p>字数：73字</p>
+      <p>字数：678字</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
     <a class='notlink'>
       <i class="fas fa-hourglass-half fa-fw" aria-hidden="true"></i>
-      <p>时长：1分钟</p>
+      <p>时长：3分钟</p>
     </a>
   </div>
 
@@ -386,21 +396,71 @@
         <div class="article-entry" itemprop="articleBody">
           
           
-          <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+          <p>Maven的下载安装、配置及简单使用</p>
 <a id="more"></a>
 
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p><a href="https://gradle.org" target="_blank" rel="noopener">Gradle</a>是是一个基于Apache Ant和Apache Maven概念的项目自动化构建开源工具。它使用一种基于Groovy的特定领域语言(DSL)来声明项目设置，目前也增加了基于Kotlin语言的kotlin-based DSL，抛弃了基于XML的各种繁琐配置。</p>
+<p>面向Java应用为主。当前其支持的语言限于Java、Groovy、Kotlin和Scala，计划未来将支持更多的语言。</p>
+<h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><div class="note blue"><p><strong>下载页面</strong> : <a href="https://services.gradle.org/distributions" target="_blank" rel="noopener">https://services.gradle.org/distributions</a> 下载gradle-x.x-bin.zip(发行版)</p></div>
 
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p><img src="/2020/09/22/Gradle%E7%9A%84%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/001.png" alt="下载界面"></p>
+<p>可以自选版本，我这里选择之前的版本 <strong>gradle-5.4-bin.zip</strong> ，解压缩，放到指定目录。</p>
+<p><img src="/2020/09/22/Gradle%E7%9A%84%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/002.png" alt="gradle目录"></p>
+<h2 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h2><div class="note blue"><p>在 此电脑 -&gt; 属性 -&gt; 高级系统设置 -&gt; 环境变量 -&gt; 系统变量 -&gt; 新建</p></div>
 
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<div class="note "><p>变量值为Gradle的文件安装位置</p></div>
 
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p><img src="/2020/09/22/Gradle%E7%9A%84%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/003.png" alt="编辑系统变量"></p>
+<div class="note blue"><p>修改path变量，将Gradle的bin 【%GRADLE_HOME%\bin】添加到变量之中</p></div>
 
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+<p><img src="/2020/09/22/Gradle%E7%9A%84%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/004.png" alt="配置path变量"></p>
+<div class="note blue"><p>在命令窗口中输出 【gradle -v】查看是否安装成功</p></div>
+
+<p><img src="/2020/09/22/Gradle%E7%9A%84%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/005.png" alt="验证"></p>
+<h2 id="配置本地仓库和镜像加速"><a href="#配置本地仓库和镜像加速" class="headerlink" title="配置本地仓库和镜像加速"></a>配置本地仓库和镜像加速</h2><div class="note blue"><p>Gradle第一次下载文件需要到远程仓库下载，这样很慢，我们可以在本地配置一个仓库，这样第二次直接在本地加载，速度飕飕的。</p></div>
+
+<div class="note "><p>还是在 此电脑 -&gt; 属性 -&gt; 高级系统设置 -&gt; 环境变量 -&gt; 系统变量 -&gt; 新建</p></div>
+
+<p><img src="/2020/09/22/Gradle%E7%9A%84%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/006.png" alt="配置本地仓库"></p>
+<div class="note blue"><p>在Gradle安装目录下的init.d文件中新建文件 <strong>init.gradle</strong> 输入以下内容：</p></div>
+
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">allprojects</span> &#123;</span><br><span class="line">    <span class="keyword">repositories</span> &#123;</span><br><span class="line">        maven &#123; url <span class="string">'file:///D:/gradlerepository'</span>&#125;</span><br><span class="line">        maven &#123; name <span class="string">"Alibaba"</span> ; url <span class="string">"https://maven.aliyun.com/repository/public"</span> &#125;</span><br><span class="line">		mavenLocal()</span><br><span class="line">        maven &#123; name <span class="string">"Bstek"</span> ; url <span class="string">"http://nexus.bsdn.org/content/groups/public/"</span> &#125;</span><br><span class="line">        mavenCentral()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">buildscript</span> &#123; </span><br><span class="line">        <span class="keyword">repositories</span> &#123; </span><br><span class="line">            maven &#123; name <span class="string">"Alibaba"</span> ; url <span class="string">'https://maven.aliyun.com/repository/public'</span> &#125;</span><br><span class="line">            maven &#123; name <span class="string">"Bstek"</span> ; url <span class="string">'http://nexus.bsdn.org/content/groups/public/'</span> &#125;</span><br><span class="line">            maven &#123; name <span class="string">"M2"</span> ; url <span class="string">'https://plugins.gradle.org/m2/'</span> &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="IntelliJ-IDEA配置Gradle"><a href="#IntelliJ-IDEA配置Gradle" class="headerlink" title="IntelliJ IDEA配置Gradle"></a>IntelliJ IDEA配置Gradle</h2><div class="note blue"><p>选择 file -&gt; setting 搜索 gradle</p></div>
+
+<p><img src="/2020/09/22/Gradle%E7%9A%84%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/007.png" alt="idea 配置 gradle"></p>
+<div class="note blue"><p>测试 创建Gradle项目</p></div>
+
+<ol>
+<li>file -&gt; new -&gt; Project ,选择Gradle</li>
+</ol>
+<p><img src="/2020/09/22/Gradle%E7%9A%84%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/008.png" alt></p>
+<ol start="2">
+<li>填写项目名和 groupid、artifactid, version, 点击 Finish</li>
+</ol>
+<p><img src="/2020/09/22/Gradle%E7%9A%84%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/009.png" alt></p>
+<ol start="3">
+<li>添加 <strong>build.gradle</strong>文件中添加Spring 依赖，测试运行Spring项目</li>
+</ol>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">group</span> <span class="string">'com.yuxiang'</span></span><br><span class="line">version <span class="string">'1.0-SNAPSHOT'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">sourceCompatibility</span> = <span class="number">1.8</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">repositories</span> &#123;</span><br><span class="line">    mavenLocal()</span><br><span class="line">    mavenCentral()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">dependencies</span> &#123;</span><br><span class="line">    testCompile <span class="keyword">group</span>: <span class="string">'junit'</span>, name: <span class="string">'junit'</span>, version: <span class="string">'4.12'</span></span><br><span class="line">    <span class="comment">// https://mvnrepository.com/artifact/org.springframework/spring-context</span></span><br><span class="line">    <span class="keyword">compile</span> <span class="keyword">group</span>: <span class="string">'org.springframework'</span>, name: <span class="string">'spring-context'</span>, version: <span class="string">'5.2.5.RELEASE'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<div class="note idea"><p>主类</p></div>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.yuxiang;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.yuxiang.service.BaseService;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.AnnotationConfigApplicationContext;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.ComponentScan;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpringMain</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        AnnotationConfigApplicationContext context</span><br><span class="line">                = <span class="keyword">new</span> AnnotationConfigApplicationContext(ServiceConfig<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line"></span><br><span class="line">        BaseService baseService = (BaseService) context.getBean(<span class="string">"baseService"</span>);</span><br><span class="line"></span><br><span class="line">        Integer integer = baseService.show(<span class="number">10</span>);</span><br><span class="line">        System.out.println(integer);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@ComponentScan</span>(<span class="string">"com.yuxiang"</span>)</span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ServiceConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<div class="note idea"><p>接口</p></div>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.yuxiang.service;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BaseService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function">Integer <span class="title">show</span><span class="params">(Integer value)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<div class="note idea"><p>实现类</p></div>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.yuxiang.service.impl;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.yuxiang.service.BaseService;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span>(<span class="string">"baseService"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BaseServiceImpl</span> <span class="keyword">implements</span> <span class="title">BaseService</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Integer <span class="title">show</span><span class="params">(Integer value)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> value * value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<div class="note red"><p>运行结果</p></div>
+
+<p><img src="/2020/09/22/Gradle%E7%9A%84%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/010.png" alt="运行结果"></p>
 
           
             <div class='article_footer'>
@@ -437,7 +497,7 @@
           
         
           
-            <p>本文永久链接是：<a href=http://localhost:4000/2020/07/03/hello-world/>http://localhost:4000/2020/07/03/hello-world/</a></p>
+            <p>本文永久链接是：<a href=http://localhost:4000/2020/09/22/Gradle%E7%9A%84%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/>http://localhost:4000/2020/09/22/Gradle%E7%9A%84%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/</a></p>
           
         
       </blockquote>
@@ -462,10 +522,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-07-29T18:39:59+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-09-23T10:31:35+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2020年7月29日</p>
+    <p>更新于：2020年9月23日</p>
   </a>
 </div>
 
@@ -478,6 +538,9 @@
       
         
           
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Gradle/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Gradle</p></a></div>
+
 
         
       
@@ -489,7 +552,7 @@
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
           
-          href="http://connect.qq.com/widget/shareqq/index.html?url=http://localhost:4000/2020/07/03/hello-world/&title=Hello World - 雨巷的伞&summary=Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub."
+          href="http://connect.qq.com/widget/shareqq/index.html?url=http://localhost:4000/2020/09/22/Gradle%E7%9A%84%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/&title=Gradle的下载安装与配置 - 雨巷的伞&summary=Maven的下载安装、配置及简单使用"
           
           >
           
@@ -501,7 +564,7 @@
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
           
-          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://localhost:4000/2020/07/03/hello-world/&title=Hello World - 雨巷的伞&summary=Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub."
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://localhost:4000/2020/09/22/Gradle%E7%9A%84%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/&title=Gradle的下载安装与配置 - 雨巷的伞&summary=Maven的下载安装、配置及简单使用"
           
           >
           
@@ -513,7 +576,7 @@
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
           
-          href="http://service.weibo.com/share/share.php?url=http://localhost:4000/2020/07/03/hello-world/&title=Hello World - 雨巷的伞&summary=Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub."
+          href="http://service.weibo.com/share/share.php?url=http://localhost:4000/2020/09/22/Gradle%E7%9A%84%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/&title=Gradle的下载安装与配置 - 雨巷的伞&summary=Maven的下载安装、配置及简单使用"
           
           >
           
@@ -537,14 +600,16 @@
         
           <div class="prev-next">
             
-              <a class='prev' href='/2020/07/09/Maven%E7%9A%84%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/'>
-                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>Maven的下载安装与配置</p>
-                <p class='content'>Maven的下载安装、配置及简单使用
-
-
-Maven简介Apache Maven是一个软件项目管理和理解工具。基于项目对象模型（POM）的概念，Maven可以从中央信息管理项目的构建，报告和文档...</p>
-              </a>
             
+              <a class='next' href='/2020/07/10/go%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%A1%86%E6%9E%B6Gin%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/'>
+                <p class='title'>go语言之框架Gin的简单使用<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+                <p class='content'>go语言之框架Gin的简单使用
+
+
+
+
+</p>
+              </a>
             
           </div>
         
@@ -557,7 +622,24 @@ Maven简介Apache Maven是一个软件项目管理和理解工具。基于项目
 
 
 
-  
+  <article class="post white-box reveal comments shadow">
+    <section class="article typo">
+      <p ct><i class='fas fa-comments'></i> 评论</p>
+      
+      
+      
+      
+      
+      
+        <section id="comments">
+          <div id="valine_container" class="valine_thread">
+            <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+          </div>
+        </section>
+      
+      
+    </section>
+  </article>
 
 
   
@@ -571,7 +653,7 @@ Maven简介Apache Maven是一个软件项目管理和理解工具。基于项目
 
   <script>
     window.subData = {
-      title: 'Hello World',
+      title: 'Gradle的下载安装与配置',
       tools: true
     }
   </script>
@@ -598,7 +680,7 @@ Maven简介Apache Maven是一个软件项目管理和理解工具。基于项目
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介"><span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#下载"><span class="toc-text">下载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置环境变量"><span class="toc-text">配置环境变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置本地仓库和镜像加速"><span class="toc-text">配置本地仓库和镜像加速</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IntelliJ-IDEA配置Gradle"><span class="toc-text">IntelliJ IDEA配置Gradle</span></a></li></ol>
     </div>
   </section>
 
@@ -817,6 +899,60 @@ Maven简介Apache Maven是一个软件项目管理和理解工具。基于项目
 
 
 
+
+  
+    
+<script src="/js/valine.js"></script>
+
+  
+  <script>
+  var GUEST_INFO = ['nick','mail','link'];
+  var meta = 'nick,mail,link'.split(',').filter(function(item){
+    return GUEST_INFO.indexOf(item) > -1
+  });
+  var REQUIRED_FIELDS = ['nick','mail','link'];
+  var requiredFields = 'nick,mail'.split(',').filter(function(item){
+    return REQUIRED_FIELDS.indexOf(item) > -1
+  });
+  var valine = new Valine();
+  function emoji(path, idx, ext) {
+      return path + "/" + path + "-" + idx + "." + ext;
+  }
+  var emojiMaps = {};
+  for (var i = 1; i <= 54; i++) {
+    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+  }
+  for (var i = 1; i <= 101; i++) {
+    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+  }
+  for (var i = 1; i <= 116; i++) {
+    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+  }
+  for (var i = 1; i <= 125; i++) {
+    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+  }
+  for (var i = 1; i <= 4; i++) {
+    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+  }
+  valine.init({
+    el: '#valine_container',
+    meta: meta,
+    
+    appId: "dogUA2FSKGTo029M1SEwGROT-MdYXbMMI",
+    appKey: "u0NdtQ8nvHoMdJPSYqm1LRxE",
+    placeholder: "快来评论吧~",
+    pageSize:'10',
+    avatar:'robohash',
+    lang:'zh-cn',
+    visitor: 'true',
+    highlight: 'true',
+    mathJax: 'false',
+    enableQQ: 'true',
+    requiredFields: requiredFields,
+    emojiCDN: 'https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/emoji/valine/',
+    emojiMaps: emojiMaps
+  })
+  </script>
 
 
 
