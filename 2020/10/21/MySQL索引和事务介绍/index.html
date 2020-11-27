@@ -435,13 +435,13 @@
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fas fa-keyboard fa-fw" aria-hidden="true"></i>
-      <p>字数：1.8k字</p>
+      <p>字数：2.6k字</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
     <a class='notlink'>
       <i class="fas fa-hourglass-half fa-fw" aria-hidden="true"></i>
-      <p>时长：7分钟</p>
+      <p>时长：10分钟</p>
     </a>
   </div>
 
@@ -458,6 +458,18 @@
 <a id="more"></a>
 
 <h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p><strong>版本</strong>：mysql 8.0.17</p>
+<h2 id="MySQL结构"><a href="#MySQL结构" class="headerlink" title="MySQL结构"></a>MySQL结构</h2><h2 id="SQL语句分类"><a href="#SQL语句分类" class="headerlink" title="SQL语句分类"></a>SQL语句分类</h2><ul>
+<li>数据定义语言DDL</li>
+</ul>
+<ul>
+<li>数据查询语言DQL</li>
+</ul>
+<ul>
+<li>数据操纵语言DML</li>
+</ul>
+<ul>
+<li>数据控制功能DCL</li>
+</ul>
 <h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><h3 id="索引介绍"><a href="#索引介绍" class="headerlink" title="索引介绍"></a>索引介绍</h3><ul>
 <li>索引是帮助MySQL高效获取数据的数据结构</li>
 <li>索引存储在文件系统中</li>
@@ -521,6 +533,7 @@
 <blockquote>
 <p>MySQL 5.6引入了索引下推优化，可以在索引遍历过程中，<strong>对索引中包含的字段先做判断，过滤掉不符合条件的记录，减少回表次数</strong>。</p>
 </blockquote>
+<p><strong>前缀索引</strong></p>
 <h3 id="索引的匹配方式"><a href="#索引的匹配方式" class="headerlink" title="索引的匹配方式"></a>索引的匹配方式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># 员工表</span><br><span class="line">create table staffs (</span><br><span class="line">    id int PRIMARY key auto_increment,</span><br><span class="line">    name VARCHAR(24) not null COMMENT &#39;姓名&#39;,</span><br><span class="line">    age int not null COMMENT &#39;年龄&#39;,</span><br><span class="line">    pos VARCHAR(20) not null COMMENT &#39;职位&#39;,</span><br><span class="line">    add_time TIMESTAMP not null COMMENT &#39;入职时间&#39;</span><br><span class="line">) CHARSET utf8 comment &#39;员工记录表&#39;;</span><br><span class="line"></span><br><span class="line"># 添加组合索引</span><br><span class="line">alter table staffs add index idx_nap(name,age,pos);</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"># 查看索引</span><br><span class="line">mysql&gt; show index from staffs\G</span><br><span class="line">*************************** 1. row ***************************</span><br><span class="line">        Table: staffs</span><br><span class="line">   Non_unique: 0</span><br><span class="line">     Key_name: PRIMARY</span><br><span class="line"> Seq_in_index: 1</span><br><span class="line">  Column_name: id</span><br><span class="line">    Collation: A</span><br><span class="line">  Cardinality: 0</span><br><span class="line">     Sub_part: NULL</span><br><span class="line">       Packed: NULL</span><br><span class="line">         Null:</span><br><span class="line">   Index_type: BTREE</span><br><span class="line">      Comment:</span><br><span class="line">Index_comment:</span><br><span class="line">      Visible: YES</span><br><span class="line">   Expression: NULL</span><br><span class="line">*************************** 2. row ***************************</span><br><span class="line">        Table: staffs</span><br><span class="line">   Non_unique: 1</span><br><span class="line">     Key_name: idx_nap</span><br><span class="line"> Seq_in_index: 1</span><br><span class="line">  Column_name: name</span><br><span class="line">    Collation: A</span><br><span class="line">  Cardinality: 0</span><br><span class="line">     Sub_part: NULL</span><br><span class="line">       Packed: NULL</span><br><span class="line">         Null:</span><br><span class="line">   Index_type: BTREE</span><br><span class="line">      Comment:</span><br><span class="line">Index_comment:</span><br><span class="line">      Visible: YES</span><br><span class="line">   Expression: NULL</span><br><span class="line">*************************** 3. row ***************************</span><br><span class="line">        Table: staffs</span><br><span class="line">   Non_unique: 1</span><br><span class="line">     Key_name: idx_nap</span><br><span class="line"> Seq_in_index: 2</span><br><span class="line">  Column_name: age</span><br><span class="line">    Collation: A</span><br><span class="line">  Cardinality: 0</span><br><span class="line">     Sub_part: NULL</span><br><span class="line">       Packed: NULL</span><br><span class="line">         Null:</span><br><span class="line">   Index_type: BTREE</span><br><span class="line">      Comment:</span><br><span class="line">Index_comment:</span><br><span class="line">      Visible: YES</span><br><span class="line">   Expression: NULL</span><br><span class="line">*************************** 4. row ***************************</span><br><span class="line">        Table: staffs</span><br><span class="line">   Non_unique: 1</span><br><span class="line">     Key_name: idx_nap</span><br><span class="line"> Seq_in_index: 3</span><br><span class="line">  Column_name: pos</span><br><span class="line">    Collation: A</span><br><span class="line">  Cardinality: 0</span><br><span class="line">     Sub_part: NULL</span><br><span class="line">       Packed: NULL</span><br><span class="line">         Null:</span><br><span class="line">   Index_type: BTREE</span><br><span class="line">      Comment:</span><br><span class="line">Index_comment:</span><br><span class="line">      Visible: YES</span><br><span class="line">   Expression: NULL</span><br><span class="line">4 rows in set (0.01 sec)</span><br></pre></td></tr></table></figure>
@@ -544,10 +557,10 @@
 <blockquote>
 <p>当用到 &gt; 或 &lt; 等范围查询时，在范围查询后面的字段将不会使用索引</p>
 </blockquote>
-<h2 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h2><h3 id="事务的基本要素"><a href="#事务的基本要素" class="headerlink" title="事务的基本要素"></a>事务的基本要素</h3><p>1、原子性（Atomicity）：事务开始后所有操作，要么全部做完，要么全部不做，不可能停滞在中间环节。事务执行过程中出错，会回滚到事务开始前的状态，所有的操作就像没有发生一样。也就是说事务是一个不可分割的整体，就像化学中学过的原子，是物质构成的基本单位。</p>
-<p>2、一致性（Consistency）：事务开始前和结束后，数据库的完整性约束没有被破坏 。比如A向B转账，不可能A扣了钱，B却没收到。</p>
-<p>3、隔离性（Isolation）：同一时间，只允许一个事务请求同一数据，不同的事务之间彼此没有任何干扰。比如A正在从一张银行卡中取钱，在A取钱的过程结束前，B不能向这张卡转账。</p>
-<p>4、持久性（Durability）：事务完成后，事务对数据库的所有更新将被保存到数据库，不能回滚。</p>
+<h2 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h2><h3 id="事务的基本要素"><a href="#事务的基本要素" class="headerlink" title="事务的基本要素"></a>事务的基本要素</h3><p>1、原子性（Atomicity）：事务开始后所有操作，要么全部做完，要么全部不做，不可能停滞在中间环节。事务执行过程中出错，会回滚到事务开始前的状态，所有的操作就像没有发生一样。也就是说事务是一个不可分割的整体，就像化学中学过的原子，是物质构成的基本单位。（通过undo log实现）</p>
+<p>2、一致性（Consistency）：事务开始前和结束后，数据库的完整性约束没有被破坏 。比如A向B转账，不可能A扣了钱，B却没收到。（通过原子性、隔离性、持久性实现）</p>
+<p>3、隔离性（Isolation）：同一时间，只允许一个事务请求同一数据，不同的事务之间彼此没有任何干扰。比如A正在从一张银行卡中取钱，在A取钱的过程结束前，B不能向这张卡转账。（通过读写锁+MVCC实现）</p>
+<p>4、持久性（Durability）：事务完成后，事务对数据库的所有更新将被保存到数据库，不能回滚。（通过redo log实现）</p>
 <h3 id="事务的并发问题"><a href="#事务的并发问题" class="headerlink" title="事务的并发问题"></a>事务的并发问题</h3><p>1、脏读：事务A读取了事务B更新的数据，然后B回滚操作，那么A读取到的数据是脏数据</p>
 <p>2、不可重复读：事务 A 多次读取同一数据，事务 B 在事务A多次读取的过程中，对数据作了更新并提交，导致事务A多次读取同一数据时，结果 不一致。</p>
 <p>3、幻读：系统管理员A将数据库中所有学生的成绩从具体分数改为ABCDE等级，但是系统管理员B就在这个时候插入了一条具体分数的记录，当系统管理员A改结束后发现还有一条记录没有改过来，就好像发生了幻觉一样，这就叫幻读。</p>
@@ -588,13 +601,71 @@
 <p>MySQL默认事务隔离级别。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show variables like &#39;TRANSACTION_isolation&#39;;</span><br><span class="line">+-----------------------+-----------------+</span><br><span class="line">| Variable_name         | Value           |</span><br><span class="line">+-----------------------+-----------------+</span><br><span class="line">| transaction_isolation | REPEATABLE-READ |</span><br><span class="line">+-----------------------+-----------------+</span><br><span class="line">1 row in set, 1 warning (0.01 sec)&#96;1&#96;</span><br></pre></td></tr></table></figure>
 
-<h3 id="演示"><a href="#演示" class="headerlink" title="演示"></a>演示</h3><blockquote>
-<p>需要将MySQL的事务提交改为手动提交。</p>
+<h3 id="演示"><a href="#演示" class="headerlink" title="演示"></a>演示</h3><p><strong>环境搭建</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 创建数据库</span><br><span class="line">create database yuxiang;</span><br><span class="line">use yuxiang;</span><br><span class="line"># 创建表</span><br><span class="line">create table tbl(id int primary key,name varchar(10));</span><br><span class="line"># 插入数据</span><br><span class="line">insert into tbl values(1,&#39;zhangsan&#39;),(2,&#39;wangwu&#39;),(3,&#39;lisi&#39;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="读未提交"><a href="#读未提交" class="headerlink" title="读未提交"></a>读未提交</h4><p>打开<strong>两个</strong>MySQL客户端，一同设置如下，两个客户端我们简称<code>m1</code>、<code>m2</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 设置事务自动提交关闭。</span><br><span class="line">set autocommit &#x3D; 0;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 设置事务隔离级别。</span><br><span class="line">set session transaction isolation level read uncommitted;</span><br></pre></td></tr></table></figure>
+
+<p>1）、在<code>m1</code>、<code>m2</code>中开启事务。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">begin;</span><br></pre></td></tr></table></figure>
+
+<p>2）、此时<code>m1</code>、<code>m2</code>两个节点查询表数据一致，我们在<code>m1</code>更新一条数据。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update tbl set name&#x3D;&quot;1111&quot; where id&#x3D;1;</span><br></pre></td></tr></table></figure>
+
+<p>3）、再<code>m2</code>中查询表数据，发现表数据也更改了。</p>
+<blockquote>
+<p><strong>此时<code>m2</code>节点虽然开启了事务，但是却读取到了<code>m1</code>节点修改且并未提交的结果，这个就是<code>读未提交</code>。</strong></p>
+<p><strong><code>读未提交</code>会产生【脏读、不可重复读、幻读】问题。</strong></p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set global autocommit&#x3D;0;</span><br></pre></td></tr></table></figure>
+<h4 id="读已提交"><a href="#读已提交" class="headerlink" title="读已提交"></a>读已提交</h4><p>打开<strong>两个</strong>MySQL客户端，一同设置如下，两个客户端我们简称<code>m1</code>、<code>m2</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 设置事务自动提交关闭。</span><br><span class="line">set autocommit &#x3D; 0;</span><br></pre></td></tr></table></figure>
 
-<h4 id="读未提交"><a href="#读未提交" class="headerlink" title="读未提交"></a>读未提交</h4><p>。。。。。。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 设置事务隔离级别。</span><br><span class="line">set session transaction isolation level read committed;</span><br></pre></td></tr></table></figure>
 
+<p>1）、在<code>m1</code>、<code>m2</code>中开启事务。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">begin;</span><br></pre></td></tr></table></figure>
+
+<p>2）、此时<code>m1</code>、<code>m2</code>两个节点查询表数据一致，我们在<code>m1</code>更新一条数据。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update tbl set name&#x3D;&quot;2222&quot; where id&#x3D;2;</span><br></pre></td></tr></table></figure>
+
+<p>3）、在<code>m2</code>中查询表数据，发现表数据<strong>没有更改</strong>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from tbl;</span><br></pre></td></tr></table></figure>
+
+<p>4）、在<code>m1</code>中，提交事务。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">commit;</span><br></pre></td></tr></table></figure>
+
+<p>5）、此时<code>m2</code>节点中再次查询，则会查看到<code>m1</code>更改的后的数据。</p>
+<blockquote>
+<p><strong>此时<code>m2</code>节点虽然开启了事务，但是却读取到了<code>m1</code>节点修改且提交后的结果，这个就是<code>读已提交</code>。</strong></p>
+<p><strong><code>读已提交</code>会产生【不可重复读、幻读】问题，但是解决了【脏读】问题。</strong></p>
+</blockquote>
+<h4 id="可重复读"><a href="#可重复读" class="headerlink" title="可重复读"></a>可重复读</h4><p>打开<strong>两个</strong>MySQL客户端，一同设置如下，两个客户端我们简称<code>m1</code>、<code>m2</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 设置事务自动提交关闭。</span><br><span class="line">set autocommit &#x3D; 0;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 设置事务隔离级别。</span><br><span class="line">set session transaction isolation level repeatable read;</span><br></pre></td></tr></table></figure>
+
+<p>1）、在<code>m1</code>、<code>m2</code>中开启事务。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">begin;</span><br></pre></td></tr></table></figure>
+
+<p>2）、此时<code>m1</code>、<code>m2</code>两个节点查询表数据一致，我们在<code>m1</code>更新一条数据。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update tbl set name&#x3D;&quot;3333&quot; where id&#x3D;3;</span><br></pre></td></tr></table></figure>
+
+<p>3）、在<code>m2</code>中查询表数据，发现表数据<strong>没有更改</strong>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from tbl;</span><br></pre></td></tr></table></figure>
+
+<p>4）、在<code>m1</code>中，提交事务。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">commit;</span><br></pre></td></tr></table></figure>
+
+<p>5）、此时<code>m2</code>节点中再次查询，发现表数据<strong>仍然没有更改</strong>。</p>
+<p>6）、将<code>m2</code>事务提交，重新查询表数据，则会看到<code>m1</code>修改后的数据。</p>
+<blockquote>
+<p><strong>此时<code>m2</code>节点开启了事务，并没有读到<code>m1</code>节点修改且提交后的结果，这个就是<code>可重复读</code>。</strong></p>
+<p><strong><code>可重复读</code>会出现【幻读】问题，解决了【脏读、不可重复读】问题。</strong></p>
+</blockquote>
+<h4 id="串行化"><a href="#串行化" class="headerlink" title="串行化"></a>串行化</h4>
   
   
     
@@ -628,10 +699,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-11-02T22:29:26+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-11-10T17:27:56+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2020年11月2日</p>
+    <p>更新于：2020年11月10日</p>
   </a>
 </div>
 
@@ -789,7 +860,7 @@ Redis 5.X
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83"><span class="toc-text">环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B4%A2%E5%BC%95"><span class="toc-text">索引</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B4%A2%E5%BC%95%E4%BB%8B%E7%BB%8D"><span class="toc-text">索引介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B4%A2%E5%BC%95%E7%9A%84%E4%BC%98%E7%82%B9"><span class="toc-text">索引的优点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B4%A2%E5%BC%95%E7%9A%84%E7%94%A8%E5%A4%84"><span class="toc-text">索引的用处</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B4%A2%E5%BC%95%E7%9A%84%E5%88%86%E7%B1%BB"><span class="toc-text">索引的分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%80%E6%9C%AF%E5%90%8D%E8%AF%8D"><span class="toc-text">技术名词</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B4%A2%E5%BC%95%E7%9A%84%E5%8C%B9%E9%85%8D%E6%96%B9%E5%BC%8F"><span class="toc-text">索引的匹配方式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8B%E5%8A%A1"><span class="toc-text">事务</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8B%E5%8A%A1%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%A6%81%E7%B4%A0"><span class="toc-text">事务的基本要素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8B%E5%8A%A1%E7%9A%84%E5%B9%B6%E5%8F%91%E9%97%AE%E9%A2%98"><span class="toc-text">事务的并发问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB"><span class="toc-text">事务隔离级别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BC%94%E7%A4%BA"><span class="toc-text">演示</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%BB%E6%9C%AA%E6%8F%90%E4%BA%A4"><span class="toc-text">读未提交</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83"><span class="toc-text">环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL%E7%BB%93%E6%9E%84"><span class="toc-text">MySQL结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SQL%E8%AF%AD%E5%8F%A5%E5%88%86%E7%B1%BB"><span class="toc-text">SQL语句分类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B4%A2%E5%BC%95"><span class="toc-text">索引</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B4%A2%E5%BC%95%E4%BB%8B%E7%BB%8D"><span class="toc-text">索引介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B4%A2%E5%BC%95%E7%9A%84%E4%BC%98%E7%82%B9"><span class="toc-text">索引的优点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B4%A2%E5%BC%95%E7%9A%84%E7%94%A8%E5%A4%84"><span class="toc-text">索引的用处</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B4%A2%E5%BC%95%E7%9A%84%E5%88%86%E7%B1%BB"><span class="toc-text">索引的分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%80%E6%9C%AF%E5%90%8D%E8%AF%8D"><span class="toc-text">技术名词</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B4%A2%E5%BC%95%E7%9A%84%E5%8C%B9%E9%85%8D%E6%96%B9%E5%BC%8F"><span class="toc-text">索引的匹配方式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8B%E5%8A%A1"><span class="toc-text">事务</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8B%E5%8A%A1%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%A6%81%E7%B4%A0"><span class="toc-text">事务的基本要素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8B%E5%8A%A1%E7%9A%84%E5%B9%B6%E5%8F%91%E9%97%AE%E9%A2%98"><span class="toc-text">事务的并发问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB"><span class="toc-text">事务隔离级别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BC%94%E7%A4%BA"><span class="toc-text">演示</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%BB%E6%9C%AA%E6%8F%90%E4%BA%A4"><span class="toc-text">读未提交</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%BB%E5%B7%B2%E6%8F%90%E4%BA%A4"><span class="toc-text">读已提交</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB"><span class="toc-text">可重复读</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%B2%E8%A1%8C%E5%8C%96"><span class="toc-text">串行化</span></a></li></ol></li></ol></li></ol>
     </div>
   </section>
 
