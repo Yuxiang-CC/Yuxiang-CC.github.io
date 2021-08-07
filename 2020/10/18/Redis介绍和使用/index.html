@@ -435,13 +435,13 @@
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fas fa-keyboard fa-fw" aria-hidden="true"></i>
-      <p>字数：2.8k字</p>
+      <p>字数：3.2k字</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
     <a class='notlink'>
       <i class="fas fa-hourglass-half fa-fw" aria-hidden="true"></i>
-      <p>时长：15分钟</p>
+      <p>时长：17分钟</p>
     </a>
   </div>
 
@@ -467,6 +467,7 @@
 <p><img src="001.png" class="lazyload placeholder" data-srcset="001.png" srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@3/img/placeholder/c617bfd2497fcea598e621413e315c368f8d8e.svg" alt="redis目录"></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 安装环境，否则可能会编译出错</span></span><br><span class="line">yum install gcc -y</span><br><span class="line"><span class="meta">#</span><span class="bash"> 编译，安装，会默认安装到 /usr/<span class="built_in">local</span>/bin 中</span></span><br><span class="line">make &amp;&amp; make install</span><br><span class="line"><span class="meta">#</span><span class="bash"> 如果编译失败，则使用 make distclean 清楚编译失败的文件</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 进入 redis目录中的 utils目录下，执行 ./install_server.sh 根据问题进行操作即可</span></span><br></pre></td></tr></table></figure>
 
+<p><img src="003.png" class="lazyload placeholder" data-srcset="003.png" srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@3/img/placeholder/c617bfd2497fcea598e621413e315c368f8d8e.svg" alt="redis status"></p>
 <p>验证服务启动状态<code>service redis_6379 status</code> 或 <code>systemctl status redis_6379</code></p>
 <p><img src="002.png" class="lazyload placeholder" data-srcset="002.png" srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@3/img/placeholder/c617bfd2497fcea598e621413e315c368f8d8e.svg" alt="redis status"></p>
 <h2 id="strace使用"><a href="#strace使用" class="headerlink" title="strace使用"></a>strace使用</h2><p><strong>strace</strong> 是 Linux 环境下的一款程序调试工具，用来监察一个应用程序所使用的系统呼叫及它所接收的系统信息。</p>
@@ -528,7 +529,39 @@
 <p>数据库操作</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 选择数据库 0-15</span></span><br><span class="line">select &lt;index&gt;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 数据移动</span></span><br><span class="line">move key &lt;dbindex&gt;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看当前库有多少个key</span></span><br><span class="line">dbsize</span><br></pre></td></tr></table></figure>
 
-<h2 id="持久化"><a href="#持久化" class="headerlink" title="持久化"></a>持久化</h2><h3 id="RDB"><a href="#RDB" class="headerlink" title="RDB"></a>RDB</h3><h3 id="AOF"><a href="#AOF" class="headerlink" title="AOF"></a>AOF</h3>
+<h2 id="持久化"><a href="#持久化" class="headerlink" title="持久化"></a>持久化</h2><h3 id="RDB"><a href="#RDB" class="headerlink" title="RDB"></a>RDB</h3><blockquote>
+<p>基于快照思想，每次读写都是全部数据，大数据量下的IO性能较低。</p>
+<p>基于fork创建子进程，内存产生额外消耗。</p>
+</blockquote>
+<p>持久化指令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 阻塞执行 将数据保存到rdb文件</span></span><br><span class="line">save</span><br><span class="line"><span class="meta">#</span><span class="bash"> 生成后台线程 将数据保存到rdb文件，但不是立即执行</span></span><br><span class="line">bgsave</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 配置文件自动执行save指令</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> save &lt;seconds&gt; &lt;changes&gt;</span></span><br><span class="line">save 900 1 # 900秒内有1个key发生改变则执行</span><br><span class="line">save 300 10 # 300秒内有10个key发生改变则执行</span><br><span class="line">save 60 10000 # 60秒内有10000个key发生改变则执行</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="AOF"><a href="#AOF" class="headerlink" title="AOF"></a>AOF</h3><blockquote>
+<p>不写全数据，每次仅追加数据</p>
+</blockquote>
+<p><strong>修改配置文件</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 开启aof</span></span><br><span class="line">appendonly yes</span><br><span class="line"><span class="meta">#</span><span class="bash"> 设置aof文件名</span></span><br><span class="line">appendfilename &quot;appendonly.aof&quot;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 设置aof保存频率 </span></span><br><span class="line"><span class="meta">#</span><span class="bash">【always】每次执行一次操作，就进行保存</span></span><br><span class="line"><span class="meta">#</span><span class="bash">【everysec】每秒执行一次保存操作</span></span><br><span class="line"><span class="meta">#</span><span class="bash">【no】</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> appendfsync always</span></span><br><span class="line">appendfsync everysec</span><br><span class="line"><span class="meta">#</span><span class="bash"> appendfsync no</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>重写aof文件</strong></p>
+<p>随着命令不断写入AOF，文件会越来越大，Redis引入AOF重写机制压缩文件体积。</p>
+<blockquote>
+<p>AOF重写规则：</p>
+<ol>
+<li><p>对同一数据的多条写命令合并为一条命令。</p>
+</li>
+<li><p>进程内已超时的数据不再写入文件。</p>
+</li>
+<li><p>忽略无效指令，重写是使用进程内数据直接成生，这样信的AOF文件只保留最终数据的写入命令，如 del key1 , hdel key2, srem key3，set name 1,set name 2等。</p>
+</li>
+</ol>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 手动重写</span></span><br><span class="line">bgrewriteaof</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 自动重写 【需继续搜索资料学习】</span></span><br><span class="line">auto-aof-rewrite-min-size &lt;size&gt;</span><br><span class="line">auto-aof-rewrite-percentage &lt;percentage&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h2><h2 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h2><h2 id="删除策略"><a href="#删除策略" class="headerlink" title="删除策略"></a>删除策略</h2><h2 id="高级命令"><a href="#高级命令" class="headerlink" title="高级命令"></a>高级命令</h2><h2 id="主从复制"><a href="#主从复制" class="headerlink" title="主从复制"></a>主从复制</h2><h2 id="哨兵"><a href="#哨兵" class="headerlink" title="哨兵"></a>哨兵</h2><h2 id="集群"><a href="#集群" class="headerlink" title="集群"></a>集群</h2>
   
   
     
@@ -562,10 +595,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-11-02T12:43:18+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-12-04T14:51:43+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2020年11月2日</p>
+    <p>更新于：2020年12月4日</p>
   </a>
 </div>
 
@@ -730,7 +763,7 @@ Docker Image percon...</p>
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83"><span class="toc-text">环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85"><span class="toc-text">下载安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#strace%E4%BD%BF%E7%94%A8"><span class="toc-text">strace使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5"><span class="toc-text">连接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#redis%E4%BA%94%E5%A4%A7%E7%B1%BB%E5%9E%8B"><span class="toc-text">redis五大类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#string"><span class="toc-text">string</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#list"><span class="toc-text">list</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#hash"><span class="toc-text">hash</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#set"><span class="toc-text">set</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sorted-set"><span class="toc-text">sorted_set</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-text">通用命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8C%81%E4%B9%85%E5%8C%96"><span class="toc-text">持久化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#RDB"><span class="toc-text">RDB</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AOF"><span class="toc-text">AOF</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83"><span class="toc-text">环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85"><span class="toc-text">下载安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#strace%E4%BD%BF%E7%94%A8"><span class="toc-text">strace使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5"><span class="toc-text">连接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#redis%E4%BA%94%E5%A4%A7%E7%B1%BB%E5%9E%8B"><span class="toc-text">redis五大类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#string"><span class="toc-text">string</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#list"><span class="toc-text">list</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#hash"><span class="toc-text">hash</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#set"><span class="toc-text">set</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sorted-set"><span class="toc-text">sorted_set</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-text">通用命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8C%81%E4%B9%85%E5%8C%96"><span class="toc-text">持久化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#RDB"><span class="toc-text">RDB</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AOF"><span class="toc-text">AOF</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8B%E5%8A%A1"><span class="toc-text">事务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%94%81"><span class="toc-text">锁</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E7%AD%96%E7%95%A5"><span class="toc-text">删除策略</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AB%98%E7%BA%A7%E5%91%BD%E4%BB%A4"><span class="toc-text">高级命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6"><span class="toc-text">主从复制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%93%A8%E5%85%B5"><span class="toc-text">哨兵</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9B%86%E7%BE%A4"><span class="toc-text">集群</span></a></li></ol>
     </div>
   </section>
 
